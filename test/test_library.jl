@@ -87,6 +87,39 @@ end
         @test eltype(eduction(
             ScanEmit(tuple, Initializer(_ -> rand(Int))), Int[])) === Int
     end
+
+    @testset "Do not call `complete` when reduced" begin
+        xs = 1:8
+        xf = ScanEmit(Initializer(_ -> []), identity) do u, x
+            push!(u, x)
+            if x % 3 == 0
+                return u, []
+            else
+                return nothing, u
+            end
+        end |> NotA(Nothing)
+
+        @testset "foreach" begin
+            called_with = []
+            @test foreach(xf, xs) do chunk
+                push!(called_with, copy(chunk))
+                5 ∈ chunk && reduced(true)
+            end == true
+            @test called_with == [1:3, 4:6]
+        end
+
+        @testset "foreach" begin
+            called_with = []
+            history = []
+            @test foldl(xf, xs; init=false) do state, chunk
+                push!(history, state)
+                push!(called_with, copy(chunk))
+                5 ∈ chunk && reduced(true)
+            end == true
+            @test called_with == [1:3, 4:6]
+            @test history == [false, false]
+        end
+    end
 end
 
 @testset "TeeZip" begin
