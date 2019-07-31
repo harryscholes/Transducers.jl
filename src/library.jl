@@ -83,7 +83,7 @@ struct Cat <: Transducer
 end
 
 outtype(::Cat, intype) = ieltype(intype)
-next(rf::R_{Cat}, result, input) = __foldl__(rf.inner, result, input, nocomplete)
+next(rf::R_{Cat}, result, input) = __foldl__(rf.inner, result, input)
 
 # https://clojure.github.io/clojure/clojure.core-api.html#clojure.core/mapcat
 # https://clojuredocs.org/clojure.core/mapcat
