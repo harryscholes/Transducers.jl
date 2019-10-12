@@ -47,8 +47,6 @@ struct Map{F} <: Transducer
     f::F
 end
 
-Map(::Type{T}) where T = Map{Type{T}}(T)  # specialization workaround
-
 isexpansive(::Map) = false
 next(rf::R_{Map}, result, input) = next(inner(rf), result, xform(rf).f(input))
 
@@ -72,8 +70,6 @@ julia> collect(MapSplat(*), zip(1:3, 10:10:30))
 struct MapSplat{F} <: Transducer
     f::F
 end
-
-MapSplat(::Type{T}) where T = MapSplat{Type{T}}(T)  # specialization workaround
 
 isexpansive(::MapSplat) = false
 next(rf::R_{MapSplat}, result, input) =
