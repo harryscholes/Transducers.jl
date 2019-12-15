@@ -41,7 +41,7 @@ See [`dreduce`](@ref) and [`transduce`](@ref).
 function dtransduce(
     xform::Transducer, step, init, coll;
     simd::SIMDFlag = Val(false),
-    basesize::Integer = max(1, length(coll) ÷ Distributed.nworkers()),
+    basesize::Integer = length(coll) ÷ Distributed.nworkers(),
     pool::Distributed.AbstractWorkerPool = Distributed.default_worker_pool(),
     _remote_foldl = _remote_foldl,
 )
