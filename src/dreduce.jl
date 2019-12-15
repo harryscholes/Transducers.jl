@@ -46,7 +46,6 @@ function dtransduce(
     _remote_foldl = _remote_foldl,
 )
     @argcheck basesize > 0
-    isempty(coll) && return init
     load_me_everywhere()
     rf = maybe_usesimd(Reduction(xform, step), simd)
     futures = map(firstindex(coll):basesize:lastindex(coll)) do start
