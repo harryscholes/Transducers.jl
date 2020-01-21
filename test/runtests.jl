@@ -1,4 +1,4 @@
-exit(0)
+exit(1)
 module TestTransducers
 using Distributed: addprocs, nworkers
 using Test
