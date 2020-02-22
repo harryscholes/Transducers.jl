@@ -709,7 +709,7 @@ function Base.map!(xf::Transducer, dest::AbstractArray, src::AbstractArray;
     return dest
 end
 
-_map!(rf, coll, dest) = transduce(restack(rf), nothing, coll)
+_map!(rf, coll, dest) = transduce(rf, nothing, coll)
 
 # The idea behind `restack` (previously called `darkritual`):
 # Deep-copy `AbstractReduction` so that compiler can treat the all
