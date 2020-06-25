@@ -40,7 +40,7 @@ julia> ZipSource(Filter(isfinite)) |> printsummary
 ZipSource
 
 julia> ZipSource(Filter(isfinite) |> Map(sin)) |> printsummary
-ZipSource
+ZiiipSource
 
 julia> ZipSource(Filter(isfinite) |> Map(sin)) |> Map(sum) |> printsummary
 ZipSource |> Map
